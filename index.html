@@ -26,6 +26,7 @@
             --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             --card-shadow-hover: 0 20px 50px rgba(59, 130, 246, 0.25);
             --section-spacing: 100px;
+            --section-spacing-mobile: 60px;
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 10px;
@@ -34,7 +35,6 @@
             --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* ============ RESET ============ */
         * {
             margin: 0;
             padding: 0;
@@ -72,7 +72,7 @@
             position: relative;
         }
 
-        /* ============ PARTICULES DE FOND ANIMÉES ============ */
+        /* ============ PARTICULES DE FOND ============ */
         .particles-container {
             position: fixed;
             top: 0;
@@ -134,7 +134,6 @@
             }
         }
 
-        /* Bordure lumineuse animée sur le conteneur */
         .main-container::before {
             content: '';
             position: absolute;
@@ -167,7 +166,6 @@
             }
         }
 
-        /* ============ TYPOGRAPHIE ============ */
         h1,
         h2,
         h3 {
@@ -176,17 +174,14 @@
             letter-spacing: -0.02em;
         }
 
+        
         h2 {
             font-size: 2.4rem;
             margin-bottom: 50px;
             text-align: center;
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            /* Plus de left:50% ni transform, le centrage se fait via text-align:center sur son parent */
         }
-
-        /* Ligne animée sous les titres */
         h2::after {
             content: '';
             position: absolute;
@@ -391,7 +386,6 @@
             overflow: hidden;
         }
 
-        /* Halo lumineux derrière le hero */
         #accueil::before {
             content: '';
             position: absolute;
@@ -490,7 +484,6 @@
             }
         }
 
-        /* Image héro */
         .hero-image-container {
             flex: 1;
             display: flex;
@@ -911,7 +904,6 @@
             border-color: var(--primary-glow);
         }
 
-        /* ============ FOOTER ============ */
         footer {
             text-align: center;
             padding: 26px;
@@ -921,7 +913,6 @@
             border-top: 1px solid var(--border-subtle);
         }
 
-        /* ============ ANIMATIONS AU SCROLL ============ */
         .hidden-animate {
             opacity: 0;
             transform: translateY(35px);
@@ -932,7 +923,6 @@
             transform: translateY(0);
         }
 
-        /* Stagger pour les enfants */
         .stagger-children>* {
             opacity: 0;
             transform: translateY(30px);
@@ -969,7 +959,7 @@
             transform: translateY(0);
         }
 
-        /* ============ RESPONSIVE ============ */
+        /* ============ RESPONSIVE AMÉLIORÉ POUR MOBILE ============ */
         @media (max-width: 992px) {
             .hero-content {
                 flex-direction: column-reverse;
@@ -977,7 +967,7 @@
             }
             .hero-text {
                 padding-right: 0;
-                margin-top: 40px;
+                margin-top: 30px;
             }
             .hero-text h2 {
                 text-align: center;
@@ -1013,19 +1003,30 @@
                 font-size: 1.9rem !important;
             }
             section {
-                padding: 60px 30px;
+                padding: var(--section-spacing-mobile) 30px;
             }
             .skills-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             .projects-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 8px;
+            }
+            .main-container {
+                border-radius: 20px;
+            }
+            .main-container::before {
+                border-radius: 22px;
+            }
             header {
-                padding: 14px 16px;
+                padding: 14px 18px;
             }
             nav ul {
                 display: none;
@@ -1035,31 +1036,50 @@
             }
             h1 {
                 font-size: 2rem !important;
+                line-height: 1.2;
             }
             h2 {
                 font-size: 1.6rem !important;
+                margin-bottom: 35px;
+            }
+            .hero-text h2 {
+                font-size: 1.1rem !important;
             }
             section {
                 padding: 45px 18px;
             }
             .hero-text {
-                margin-top: 25px;
+                margin-top: 20px;
             }
-            .hero-text h2 {
-                font-size: 1.1rem !important;
+            .hero-text p {
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 10px 24px;
+                font-size: 0.9rem;
             }
             .timeline-item {
                 padding: 20px 18px;
+                margin-bottom: 18px;
             }
-            .main-container {
-                border-radius: 20px;
+            .skill-category {
+                padding: 24px 18px;
             }
-            .main-container::before {
-                border-radius: 22px;
+            .project-info {
+                padding: 18px;
             }
-        }
-
-        @media (max-width: 400px) {
+            .project-img {
+                height: 160px;
+            }
+            .contact-item {
+                margin-bottom: 18px;
+            }
+            .social-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+            /* Réduction de la taille de l'image hero sur très petit écran */
             .hero-img {
                 width: 180px;
                 height: 180px;
@@ -1076,23 +1096,65 @@
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 12px;
+            }
+            .hero-buttons .btn {
+                width: 80%;
+                text-align: center;
+            }
+            .about-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero-text h1 {
+                font-size: 1.8rem !important;
+            }
+            .hero-text h2 {
+                font-size: 1rem !important;
+            }
+            .hero-text p {
+                font-size: 0.85rem;
+            }
+            .hero-img {
+                width: 150px;
+                height: 150px;
+            }
+            .image-ring-bg {
+                width: 180px;
+                height: 180px;
+            }
+            .image-ring-border {
+                width: 160px;
+                height: 160px;
+                border-width: 2px;
             }
             .btn {
-                width: 100%;
-                text-align: center;
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+            section {
+                padding: 35px 14px;
+            }
+            .timeline-item {
+                padding: 16px 14px;
+            }
+            .timeline-date {
+                font-size: 0.8rem;
+            }
+            .timeline-item h3 {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============ PARTICULES DE FOND ============ -->
     <div class="particles-container" id="particlesContainer"></div>
 
-    <!-- ============ CONTENEUR PRINCIPAL ============ -->
     <div class="main-container">
 
-        <!-- ============ HEADER ============ -->
         <header id="mainHeader">
             <div class="logo">
                 <i class="fas fa-code"></i>
@@ -1110,7 +1172,6 @@
             <a href="#contact" class="btn btn-primary btn-header-cta">Me contacter</a>
         </header>
 
-        <!-- ============ ACCUEIL ============ -->
         <section id="accueil">
             <div class="hero-content">
                 <div class="hero-text hidden-animate">
@@ -1132,7 +1193,6 @@
             </div>
         </section>
 
-        <!-- ============ À PROPOS ============ -->
         <section id="a-propos">
             <div class="about-content hidden-animate">
                 <h2>À propos de moi</h2>
@@ -1147,7 +1207,6 @@
             </div>
         </section>
 
-        <!-- ============ COMPÉTENCES ============ -->
         <section id="competences">
             <h2 class="hidden-animate">Mes Compétences</h2>
             <div class="skills-grid stagger-children hidden-animate">
@@ -1191,7 +1250,6 @@
             </div>
         </section>
 
-        <!-- ============ PROJETS ============ -->
         <section id="projets">
             <h2 class="hidden-animate">Projets Récents</h2>
             <div class="projects-grid stagger-children hidden-animate">
@@ -1249,7 +1307,6 @@
             </div>
         </section>
 
-        <!-- ============ EXPÉRIENCE ============ -->
         <section id="experience">
             <h2 class="hidden-animate">Expérience</h2>
             <div class="timeline-list stagger-children hidden-animate">
@@ -1296,12 +1353,11 @@
             </div>
         </section>
 
-        <!-- ============ FORMATIONS ============ -->
         <section id="formations" style="background-color: var(--bg-section-alt);">
             <h2 class="hidden-animate">Formations</h2>
             <div class="timeline-list stagger-children hidden-animate">
                 <div class="timeline-item">
-                    <span class="timeline-date">2022 - En cours</span>
+                    <span class="timeline-date">2022 - 2025 (En cours)</span>
                     <h3>Licence Informatique & Développement Web</h3>
                     <h4>Inside UNIVERSITY</h4>
                     <p>Apprentissage approfondi des langages de programmation, algorithmique, bases de données, et gestion de projet agile.</p>
@@ -1315,7 +1371,6 @@
             </div>
         </section>
 
-        <!-- ============ CONTACT ============ -->
         <section id="contact">
             <h2 class="hidden-animate">Me Contacter</h2>
             <div class="contact-container hidden-animate">
@@ -1352,27 +1407,22 @@
             </div>
         </section>
 
-        <!-- ============ FOOTER ============ -->
         <footer>
             <p>© 2025 Hariantso. Tous droits réservés.</p>
         </footer>
     </div>
 
-    <!-- ============ SCRIPTS ============ -->
     <script>
-        // ============ GÉNÉRATION DES PARTICULES ============
         (function() {
             const container = document.getElementById('particlesContainer');
-            const particleCount = 50;
-
+            const particleCount = 40;
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                const size = Math.random() * 5 + 2;
+                const size = Math.random() * 4 + 1.5;
                 const posX = Math.random() * 100;
-                const dur = Math.random() * 8 + 6;
-                const delay = Math.random() * 10;
-
+                const dur = Math.random() * 10 + 8;
+                const delay = Math.random() * 12;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.left = posX + '%';
@@ -1380,19 +1430,14 @@
                 particle.style.setProperty('--delay', delay + 's');
                 particle.style.animationDelay = delay + 's';
                 particle.style.animationDuration = dur + 's';
-
-                // Variation de teinte bleue
                 const hue = 210 + Math.random() * 30;
-                const opacity = Math.random() * 0.5 + 0.2;
+                const opacity = Math.random() * 0.4 + 0.15;
                 particle.style.background = `hsla(${hue}, 90%, 55%, ${opacity})`;
-                particle.style.boxShadow =
-                    `0 0 ${4+size}px hsla(${hue}, 90%, 60%, 0.6), 0 0 ${12+size*2}px hsla(${hue}, 90%, 55%, 0.3)`;
-
+                particle.style.boxShadow = `0 0 ${3+size}px hsla(${hue}, 90%, 60%, 0.5), 0 0 ${10+size*2}px hsla(${hue}, 90%, 55%, 0.2)`;
                 container.appendChild(particle);
             }
         })();
 
-        // ============ HEADER SCROLL EFFECT ============
         const header = document.getElementById('mainHeader');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 60) {
@@ -1402,10 +1447,8 @@
             }
         });
 
-        // ============ MENU ACTIF AU SCROLL ============
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('nav ul li a');
-
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
@@ -1415,7 +1458,6 @@
                     current = section.getAttribute('id');
                 }
             });
-
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href').substring(1) === current) {
@@ -1424,24 +1466,16 @@
             });
         });
 
-        // ============ INTERSECTION OBSERVER (ANIMATIONS AU SCROLL) ============
         const hiddenElements = document.querySelectorAll('.hidden-animate');
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show-animate');
-                    // Ne pas retirer pour que l'animation ne se rejoue pas à chaque fois
                 }
             });
-        }, {
-            threshold: 0.12,
-            rootMargin: '0px 0px -40px 0px'
-        });
-
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
         hiddenElements.forEach((el) => observer.observe(el));
 
-        // ============ EFFET DE SURVOL 3D SUBTIL SUR LES CARTES PROJET ============
         const projectCards = document.querySelectorAll('.project-card');
         projectCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -1452,40 +1486,12 @@
                 const centerY = rect.height / 2;
                 const rotateX = (y - centerY) / centerY * -6;
                 const rotateY = (x - centerX) / centerX * 6;
-                card.style.transform =
-                    `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-14px) scale(1.02)`;
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-14px) scale(1.02)`;
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = '';
-                card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                }, 500);
             });
         });
-
-        // ============ ANIMATION DES TITRES H2 AU SCROLL ============
-        const allH2 = document.querySelectorAll('h2');
-        const h2Observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const h2 = entry.target;
-                    // Réinitialiser l'animation de la ligne
-                    h2.style.animation = 'none';
-                    h2.offsetHeight;
-                    h2.style.animation = '';
-                    const after = h2.querySelector('::after');
-                }
-            });
-        }, { threshold: 0.5 });
-        allH2.forEach(h2 => h2Observer.observe(h2));
-
-        // ============ COMPTEUR DOUX POUR LES ANNÉES (optionnel, gardé simple) ============
-        console.log('%c Portfolio Hariantso %c Chargé avec succès ✨',
-            'color: #3b82f6; font-size: 1.2rem; font-weight: bold;',
-            'color: #94a3b8;');
-        console.log('%c Thème Bleu Sombre Pro • Animations avancées • 100% Responsive',
-            'color: #60a5fa; font-size: 0.85rem;');
     </script>
 </body>
 </html>
